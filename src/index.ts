@@ -10,7 +10,7 @@ type DateType<B> = B  extends 'timestamp' ? number : string;
 export default class PrimaGasClient<B extends DateFormatType> {
     private readonly username: string;
     private readonly password: string;
-    private dateFormat: DateFormatType;
+    private readonly dateFormat: DateFormatType;
 
     /**
      *
@@ -49,7 +49,7 @@ export default class PrimaGasClient<B extends DateFormatType> {
     /**
      * fetch cookies
      */
-    login(ref: string): Promise<AxiosResponseHeaders> {
+    private login(ref: string): Promise<AxiosResponseHeaders> {
         return new Promise((resolve, reject) => {
             axios({
                 method: "POST",
@@ -75,7 +75,7 @@ export default class PrimaGasClient<B extends DateFormatType> {
         });
     }
 
-    fetchUrlAfterLogin(ref: string): Promise<AxiosResponse<string>> {
+    private fetchUrlAfterLogin(ref: string): Promise<AxiosResponse<string>> {
         return new Promise((resolve, reject) => {
             this.login(ref).then(result => {
                 return (axios.request<string>({
@@ -90,7 +90,7 @@ export default class PrimaGasClient<B extends DateFormatType> {
         });
     }
 
-    tankDaten(): Promise<TankDaten> {
+    public tankDaten(): Promise<TankDaten> {
         return new Promise((resolve, reject) => {
             //console.time("tankDaten");
             this.fetchUrlAfterLogin("/b2b/meine_daten/tankdaten.cfm").then(res => {
@@ -137,7 +137,7 @@ export default class PrimaGasClient<B extends DateFormatType> {
         });
     }
 
-    rechnungsDaten(): Promise<RechnungsDaten<DateType<B>>> {
+    public rechnungsDaten(): Promise<RechnungsDaten<DateType<B>>> {
         return new Promise((resolve, reject) => {
             //console.time("rechnungsDaten");
             this.fetchUrlAfterLogin("/b2b/meine_daten/rechnungen.cfm").then(res => {
@@ -166,7 +166,7 @@ export default class PrimaGasClient<B extends DateFormatType> {
         });
     }
 
-    stammDaten(): Promise<StammDaten> {
+    public stammDaten(): Promise<StammDaten> {
         return new Promise((resolve, reject) => {
             //console.time("stammDaten");
             this.fetchUrlAfterLogin("/b2b/meine_daten/stammdaten.cfm").then(res => {
