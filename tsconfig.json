@@ -1,9 +1,11 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es6",
+		"module": "ES2022",
+		"target": "es2022",
 		"sourceMap": true,
-		"outDir": "dist"
+		"outDir": "dist",
+		"moduleResolution": "NodeNext",
+		"allowSyntheticDefaultImports": true
 	},
 	"exclude": [
 		"node_modules"

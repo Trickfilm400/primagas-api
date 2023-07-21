@@ -4,6 +4,7 @@
 	"description": "API for fetching data of the Primagas Website",
 	"main": "dist/index.js",
 	"typings": "types/types.d.ts",
+	"type": "module",
 	"files": [
 		"dist",
 		"types"
