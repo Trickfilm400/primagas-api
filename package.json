@@ -16,6 +16,7 @@
 	"author": "Nico W. <info@ni-wa.de> (https://trickfilm400.de/)",
 	"license": "MIT",
 	"dependencies": {
+		"@trickfilm400/shvenergy-api-client": "^0.0.1-beta02",
 		"axios": "^1.4.0",
 		"base64url": "^3.0.1",
 		"openid-client": "^5.4.3",
