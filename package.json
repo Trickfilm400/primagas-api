@@ -1,6 +1,6 @@
 {
 	"name": "@trickfilm400/primagas-api",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "API for fetching data of the Primagas Website",
 	"main": "dist/index.js",
 	"typings": "types/types.d.ts",
