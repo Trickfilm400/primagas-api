@@ -1,7 +1,3 @@
-import {TankDaten} from "./interfaces/TankDaten.js";
-import {RechnungsDaten} from "./interfaces/RechnungsDaten.js";
-import {StammDaten} from "./interfaces/StammDaten.js";
-import {LoginFlow, TokenResponse} from "./LoginFlow.js";
 import {PrimaGasAPI} from "./PrimaGasAPI";
 
 type DateFormatType = "timestamp" | "object";

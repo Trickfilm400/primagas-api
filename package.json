@@ -11,7 +11,7 @@
 	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "tsc && tsc -p tsconfig.esm.json"
+		"build": "tsc && tsc -p tsconfig.esm.json && tsc -p tsconfig.types.json"
 	},
 	"author": "Nico W. <info@ni-wa.de> (https://trickfilm400.de/)",
 	"license": "MIT",
