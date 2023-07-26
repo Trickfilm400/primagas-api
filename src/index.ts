@@ -3,7 +3,7 @@ import {PrimaGasAPI} from "./PrimaGasAPI";
 type DateFormatType = "timestamp" | "object";
 type DateType<B> = B extends 'timestamp' ? number : Date;
 
-export default class PrimaGasClient<B extends DateFormatType> {
+export class PrimaGasClient<B extends DateFormatType> {
     private readonly username: string;
     private readonly password: string;
     private readonly dateFormat: DateFormatType;

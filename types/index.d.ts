@@ -1,5 +1,5 @@
 type DateFormatType = "timestamp" | "object";
-export default class PrimaGasClient<B extends DateFormatType> {
+export declare class PrimaGasClient<B extends DateFormatType> {
     private readonly username;
     private readonly password;
     private readonly dateFormat;
