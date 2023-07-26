@@ -1,4 +1,4 @@
-import {LoginFlow, TokenResponse} from "./LoginFlow.js";
+import {LoginFlow, TokenResponse} from "./LoginFlow";
 import {ApiApi, Configuration} from "@trickfilm400/shvenergy-api-client";
 
 export class PrimaGasAPI {

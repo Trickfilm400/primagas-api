@@ -2,16 +2,16 @@
 	"name": "@trickfilm400/primagas-api",
 	"version": "0.0.2",
 	"description": "API for fetching data of the Primagas Website",
-	"main": "dist/index.js",
-	"typings": "types/types.d.ts",
-	"type": "module",
+	"main": "./dist/index.js",
+	"typings": "./types/index.d.ts",
+	"module": "./dist/esm/index.js",
 	"files": [
 		"dist",
 		"types"
 	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "tsc"
+		"build": "tsc && tsc -p tsconfig.esm.json"
 	},
 	"author": "Nico W. <info@ni-wa.de> (https://trickfilm400.de/)",
 	"license": "MIT",
@@ -25,6 +25,7 @@
 	"devDependencies": {
 		"@types/jsdom": "^21.1.1",
 		"@types/node": "^20.3.3",
+		"@types/randomstring": "^1.1.8",
 		"typescript": "^5.1.6"
 	},
 	"publishConfig": {

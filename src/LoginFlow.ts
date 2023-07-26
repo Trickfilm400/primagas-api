@@ -1,7 +1,7 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
-import crypto from "crypto";
+import * as crypto from "crypto";
 import base64url from "base64url";
-import randomstring from "randomstring";
+import * as randomstring from "randomstring";
 
 /**
  * OAuth Access Token Response
@@ -45,7 +45,7 @@ export class LoginFlow {
             .update(code_verifier)
             .digest("base64");
         // this.log(base64Digest); // +PCBxoCJMdDloUVl1ctjvA6VNbY6fTg1P7PNhymbydM=
-        const code_challenge = base64url.default.fromBase64(base64Digest);
+        const code_challenge = base64url.fromBase64(base64Digest);
         // this.log(code_challenge); // -PCBxoCJMdDloUVl1ctjvA6VNbY6fTg1P7PNhymbydM
         this.code.challenge = code_challenge;
         this.code.verifier = code_verifier;
