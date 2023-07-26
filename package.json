@@ -3,7 +3,7 @@
 	"version": "0.0.2",
 	"description": "API for fetching data of the Primagas Website",
 	"main": "./dist/index.js",
-	"typings": "./types/index.d.ts",
+	"typings": "./types/types.d.ts",
 	"module": "./dist/esm/index.js",
 	"files": [
 		"dist",
