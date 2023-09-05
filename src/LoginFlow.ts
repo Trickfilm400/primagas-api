@@ -84,8 +84,8 @@ export class LoginFlow {
         //this.log(state[0])
         this.state = state[0];
         // CRSF
-        const csrf = /"csrf":"(?<csrf>[^"]+)"/.exec(auth_page);
-        this.csrf = csrf.groups.csrf;
+        const csrf = /"csrf":.?"(?<csrf>[^"]+)"/.exec(auth_page);
+        this.csrf = csrf.groups?.csrf;
         //validate request response to check if maybe an error occurred
         if (!this.state || !this.csrf) throw new Error("Could not find state or csrf in authorize response")
     }
@@ -131,18 +131,17 @@ export class LoginFlow {
      * @private
      */
     private async token() {
+        this.log("get access token")
         //remove useless data in cookie header data, because it is not used and maybe created errors
-        let cookies = this.authorize_result.headers["set-cookie"].map((cookie) => cookie.substring(0, cookie.length - "; domain=depgprodaadb2c.b2clogin.com; path=/; SameSite=None; secure; HttpOnly".length));
-        let cookies_post = this.postResponse.headers["set-cookie"].map((cookie) => cookie.substring(0, cookie.length - "; domain=depgprodaadb2c.b2clogin.com; path=/; SameSite=None; secure; HttpOnly".length));
-
-        //this.log("COOOOOKIES")
-        //replace x-ms-cpim-cache cookie
-        //find original value
-        const index = cookies.indexOf(cookies.find(x => x.includes("x-ms-cpim-cache")))
-        //find new value to replace with
-        const index_org = cookies_post.indexOf(cookies_post.find(x => x.includes("x-ms-cpim-cache")))
+        const _authCookies = this.authorize_result.headers["set-cookie"].map((cookie) => cookie.substring(0, cookie.length - "; domain=depgprodaadb2c.b2clogin.com; path=/; SameSite=None; secure; HttpOnly".length));
+        const _postCookies = this.postResponse.headers["set-cookie"].map((cookie) => cookie.substring(0, cookie.length - "; domain=depgprodaadb2c.b2clogin.com; path=/; SameSite=None; secure; HttpOnly".length));
+        let resultCookies = _postCookies;
+        //replace x-ms-cpim-sso cookie
+        //find new value
+        const index_org_2 = _authCookies.indexOf(_postCookies.find(x => x.includes("x-ms-cpim-sso")))
         //replace
-        cookies[index] = this.postResponse.headers["set-cookie"][index_org];
+        resultCookies.push(_authCookies[index_org_2]);
+        resultCookies.push("x-ms-cpim-csrf="+this.csrf);
 
 
         const confirmQuery = new URLSearchParams({
@@ -158,7 +157,7 @@ export class LoginFlow {
                 // "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
                 // "Accept-Language": "de,en-US;q=0.7,en;q=0.3",
                 "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0",
-                "cookie": cookies.join("; "),
+                "cookie": resultCookies.join("; "),
             },
             maxRedirects: 0,
             //overwrite function to allow 302 Redirect responses as valid response
