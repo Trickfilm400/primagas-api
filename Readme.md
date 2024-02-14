@@ -2,7 +2,7 @@
 
 This NPM package provides a full nodejs-api for the Primagas-Website to fetch data of your account, your gas tank and more.
 
-**Note**: As of July 2023, there is a new customer portal, which is a complete rewrite of the old one. This script will currently not work with the new one and the old one is offline.
+~~Note: As of July 2023, there is a new customer portal, which is a complete rewrite of the old one. This script will currently not work with the new one and the old one is offline.~~
 
 Some information about the new portal:
 - OAuth2 Authorization URL: `https://depgprodaadb2c.b2clogin.com/depgprodaadb2c.onmicrosoft.com/b2c_1a_signinorsignup/oauth2/v2.0/authorize`
@@ -35,4 +35,4 @@ client.tankDaten().then(console.log, console.error);
 // client.stammDaten().then(console.log, console.error);
 ```
 
-&copy; 2022-2023 Trickfilm400
+&copy; 2022-2024 Trickfilm400
