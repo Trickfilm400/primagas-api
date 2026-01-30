@@ -73,7 +73,7 @@ export class LoginFlow {
         const authorize_Result = await axios.post<string>(`https://depgprodaadb2c.b2clogin.com/depgprodaadb2c.onmicrosoft.com/b2c_1a_signinorsignup/oauth2/v2.0/authorize?${query}`, undefined, {
             withCredentials: true, //needed for cookies
             headers: {
-                "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0",
+                "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/146.0",
             }
         })
         this.authorize_result = authorize_Result;
@@ -109,7 +109,7 @@ export class LoginFlow {
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
                 "X-CSRF-TOKEN": this.csrf,
                 "X-Requested-With": "XMLHttpRequest",
-                "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0",
+                "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/146.0",
                 //"Accept": "application/json, text/javascript, */*; q=0.01"
             },
             data: `request_type=RESPONSE&signInName=${username}&password=${password}`
@@ -156,7 +156,7 @@ export class LoginFlow {
             headers: {
                 // "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
                 // "Accept-Language": "de,en-US;q=0.7,en;q=0.3",
-                "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0",
+                "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/146.0",
                 "cookie": resultCookies.join("; "),
             },
             maxRedirects: 0,
