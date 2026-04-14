@@ -35,4 +35,4 @@ client.tankDaten().then(console.log, console.error);
 // client.stammDaten().then(console.log, console.error);
 ```
 
-&copy; 2022-2024 Trickfilm400
+&copy; 2022-2026 Trickfilm400
