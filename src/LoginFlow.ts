@@ -67,7 +67,7 @@ export class LoginFlow {
         //urlQuery1.set("state", "sssdfdgfhgfgdfs"); //unused, not needed
         urlQuery1.set("business_unit", "DE-PG");
         urlQuery1.set("ui_locales", "de-DE");
-        urlQuery1.set("code_challenge", this.code.challenge);
+        urlQuery1.set("code_challenge", this.code.challenge!);
         urlQuery1.set("code_challenge_method", "S256");
         const query = urlQuery1.toString();
         const authorize_Result = await axios.post<string>(`https://depgprodaadb2c.b2clogin.com/depgprodaadb2c.onmicrosoft.com/b2c_1a_signinorsignup/oauth2/v2.0/authorize?${query}`, undefined, {
@@ -82,10 +82,10 @@ export class LoginFlow {
         // STATEPROPERTIES
         const state = /StateProperties([^"]+)/.exec(auth_page);
         //this.log(state[0])
-        this.state = state[0];
+        this.state = state?.[0]!;
         // CRSF
         const csrf = /"csrf":.?"(?<csrf>[^"]+)"/.exec(auth_page);
-        this.csrf = csrf.groups?.csrf;
+        this.csrf = csrf?.groups?.csrf!;
         //validate request response to check if maybe an error occurred
         if (!this.state || !this.csrf) throw new Error("Could not find state or csrf in authorize response")
     }
@@ -105,7 +105,7 @@ export class LoginFlow {
             withCredentials: true,
             method: "POST",
             headers: {
-                "cookie": this.authorize_result.headers["set-cookie"].join(";"),
+                "cookie": this.authorize_result.headers["set-cookie"]?.join(";"),
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
                 "X-CSRF-TOKEN": this.csrf,
                 "X-Requested-With": "XMLHttpRequest",
@@ -133,15 +133,15 @@ export class LoginFlow {
     private async token() {
         this.log("get access token")
         //remove useless data in cookie header data, because it is not used and maybe created errors
-        const _authCookies = this.authorize_result.headers["set-cookie"].map((cookie) => cookie.substring(0, cookie.length - "; domain=depgprodaadb2c.b2clogin.com; path=/; SameSite=None; secure; HttpOnly".length));
-        const _postCookies = this.postResponse.headers["set-cookie"].map((cookie) => cookie.substring(0, cookie.length - "; domain=depgprodaadb2c.b2clogin.com; path=/; SameSite=None; secure; HttpOnly".length));
+        const _authCookies = this.authorize_result.headers["set-cookie"]?.map((cookie) => cookie.substring(0, cookie.length - "; domain=depgprodaadb2c.b2clogin.com; path=/; SameSite=None; secure; HttpOnly".length));
+        const _postCookies = this.postResponse.headers["set-cookie"]?.map((cookie) => cookie.substring(0, cookie.length - "; domain=depgprodaadb2c.b2clogin.com; path=/; SameSite=None; secure; HttpOnly".length));
         let resultCookies = _postCookies;
         //replace x-ms-cpim-sso cookie
         //find new value
-        const index_org_2 = _authCookies.indexOf(_postCookies.find(x => x.includes("x-ms-cpim-sso")))
+        const index_org_2 = _authCookies?.indexOf(_postCookies?.find(x => x.includes("x-ms-cpim-sso"))!)
         //replace
-        resultCookies.push(_authCookies[index_org_2]);
-        resultCookies.push("x-ms-cpim-csrf="+this.csrf);
+        resultCookies?.push(_authCookies?.[index_org_2!]!);
+        resultCookies?.push("x-ms-cpim-csrf="+this.csrf);
 
 
         const confirmQuery = new URLSearchParams({
@@ -157,7 +157,7 @@ export class LoginFlow {
                 // "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
                 // "Accept-Language": "de,en-US;q=0.7,en;q=0.3",
                 "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/146.0",
-                "cookie": resultCookies.join("; "),
+                "cookie": resultCookies?.join("; "),
             },
             maxRedirects: 0,
             //overwrite function to allow 302 Redirect responses as valid response
